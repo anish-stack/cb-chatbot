@@ -35,3 +35,26 @@ exports.CallConfirmBuyers = catchAsyncError(async (req, res) => {
     });
   }
 });
+
+exports.getAllcallBack = catchAsyncError(async (req, res) => {
+  try {
+    const data = await ContactModel.find();
+
+    // Sorting Data According to TimeStamp
+ // Sorting Data According to TimeStamp
+ data.sort((a, b) => b.TimeStamp - a.TimeStamp);
+
+ res.status(200).json({
+   status: true,
+   count: data.length,
+   data: data,
+ });
+  } catch (error) {
+    // Handle the error appropriately, for example:
+    console.error(`Error: ${error}`);
+    res.status(500).json({
+      status: false,
+      msg: `Server Error: ${error}`,
+    });
+  }
+});
